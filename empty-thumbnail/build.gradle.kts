@@ -44,7 +44,10 @@ android {
 
     publishing {
 
-        singleVariant("release")
+        singleVariant("release") {
+
+            withSourcesJar()
+        }
     }
 }
 
@@ -72,17 +75,17 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
 }
 
-afterEvaluate {
+publishing {
 
-    publishing {
+    publications {
 
-        publications {
+        register<MavenPublication>("release") {
 
-            create<MavenPublication>("mavenJava") {
+            groupId = "io.bashpsk"
+            artifactId = "empty-thumbnail"
+            version = "1.0.1"
 
-                groupId = "io.github.bashpsk"
-                artifactId = "empty-thumbnail"
-                version = "1.0.0"
+            afterEvaluate {
 
                 from(components["release"])
             }
